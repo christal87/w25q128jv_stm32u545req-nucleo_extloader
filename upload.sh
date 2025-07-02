@@ -37,6 +37,11 @@ echo "---Flashing:---"
 echo "STM32_Programmer.sh -vb 3 -c port=swd -w $SOURCE_FILE $FLASH_BASE -el \"$EXT_LOADER\""
 $CUBEPROG_CLI -vb 3 -c port=swd -w $SOURCE_FILE $FLASH_BASE -el $EXT_LOADER
 
+if [ $? -ne 0 ]; then
+    printf "Error writing source file\n"
+    exit 1
+fi
+
 #Read back and verify chunks on a loop
 SOURCE_SIZE=$(stat -c %s "$SOURCE_FILE")
 CHUNK_INDEX=0
