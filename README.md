@@ -4,6 +4,9 @@ STM32CubeProg external loader for a Winbond W25Q128JVSIQ connected to a Nucleo-U
 *Since this Winbond NOR flash is the Q variant it comes with QE = 1 (fixed) in Status register-2. It's already set to be used in quad mode. As this has a limited number of pins the /HOLD function is disabled to support Standard, Dual and Quad I/O without user setting.
 
 The octo SPI interface clock output prescaler is deliberately set to 159 to slow down the flash to 1MHz (@160MHz interface clock) to avoid signal integrity issues while using jumper wires.  
+
+A 4MHz to 80MHz QSPI clock combined with an 8MHz SWD clock (STLINKV3) through a well-designed PCB and a bit messy hook-up wiring gave the fastest possible read/write throughtput of ~576kBytes/sec without any CubeHAL customizations. Raising the SWD clock to 24MHz has shown no further performance gains. Using an older STLINKV2 limited to a 4MHz SWD clock achieved only ~160kBytes/sec. These data transfer rates are known limitations of STLINK debuggers.  
+
 OCTOSPI1 GPIO Configuration:  
 
 | Nucleo Pin | MCU Pin | Flash Pin    |
